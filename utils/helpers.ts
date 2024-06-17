@@ -7,7 +7,6 @@ export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
   try {
     const [headerEncoded, payloadEncoded, signatureEncoded] = jwt.split('.');
 
-    console.log(headerEncoded);
     const header = JSON.parse(
       Buffer.from(headerEncoded, 'base64').toString('utf-8'),
     );
@@ -20,7 +19,6 @@ export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
     console.log('payload');
     console.log(payload);
 
-    console.log(signatureEncoded);
     const signature = Buffer.from(signatureEncoded, 'base64');
     console.log('signature');
     console.log(signature);
@@ -30,7 +28,6 @@ export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
       throw new Error('Invalid algorithm');
     }
 
-    console.log(issuerPubKey);
     const decodedPublicKey = Buffer.from(issuerPubKey, 'base64');
     console.log('decoded pub key');
     console.log(decodedPublicKey);
@@ -47,11 +44,11 @@ export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
       console.log('Payload:', payload);
       return payload;
     } else {
-      console.error('JWT signature verification failed');
       return null;
     }
   } catch (error) {
     console.error('Error verifying JWT signature:', error);
+    return null;
   }
 };
 

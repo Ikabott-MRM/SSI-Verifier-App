@@ -12,6 +12,7 @@ import { useRouter } from 'expo-router';
 // import { Image } from 'react-native';
 import { Image } from 'expo-image';
 import { Payload } from './CredentialData';
+import Toast from 'react-native-root-toast'
 
 export default function CredentialsVerification() {
   const router = useRouter();
@@ -25,39 +26,48 @@ export default function CredentialsVerification() {
   const handleBarCodeScanned = async ({ data }: { data: string }) => {
     try {
       setScanData(data);
-      console.log(issuerPubKey);
       if (!Boolean(issuerPubKey?.length) || !issuerPubKey) {
         console.log(
           'ERROR: There is no issuer public key to be used for VC signature verification',
         );
+        Toast.show('Cannot validate VC. Issuer key is missing.', {
+          duration: Toast.durations.LONG,
+        });
         return;
       }
 
       const res = await verifyJWTSignature(data, issuerPubKey);
       if (res) {
-        console.log(res);
         setIsValidSignature(true);
         if (res.vc) {
           setCredPayload(res);
-          console.log(res);
-          console.log(res.vc);
         }
+        Toast.show('VC has been validated', {
+          duration: Toast.durations.LONG,
+        });
         return;
+      }else{
+        Toast.show('Invalid VC', {
+          duration: Toast.durations.LONG,
+        });
       }
     } catch (e) {
       if (e instanceof SyntaxError) {
         console.error('handleBarCodeScanned', e);
         setIsValidSignature(false);
+        Toast.show('There was a problem verifying the VC', {
+          duration: Toast.durations.LONG,
+        });
         return;
       }
     }
   };
 
   useEffect(() => {
-    if (!permission || permission.status !== 'granted') {
+    if (!permission || !permission.granted ) {
       requestPermission();
     }
-  }, [permission]);
+  }, []);
 
   const handleRequestPermission = () => {
     requestPermission();
@@ -68,7 +78,7 @@ export default function CredentialsVerification() {
     return <Text>Loading...</Text>;
   }
 
-  if (permission.status !== 'granted') {
+  if (permission && !permission.granted) {
     // Permission is not granted
     return (
       <View style={styles.container}>
