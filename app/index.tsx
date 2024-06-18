@@ -9,14 +9,15 @@ import {
   savePubKeyToStore,
   KEY_DID_SECURE_STORE,
 } from '../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
     Platform.OS !== 'web' ? getPubKeyFromStore() : null,
   );
-
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
+  const {t} = useTranslation();
 
   const handleFetch = () => {
     console.log('fetching issuer pub keys');
@@ -37,7 +38,7 @@ export default function HomeScreen() {
     <View style={styles.container}>
       {!isLoading ? (
         <>
-          <Text style={styles.title}>Verifier App</Text>
+          <Text style={styles.title}>{t('Verifier App')}</Text>
           <View style={styles.buttons}>
             {issuerPubKey ? (
               <Button
@@ -45,7 +46,7 @@ export default function HomeScreen() {
                 style={styles.button}
                 onPress={() => router.replace('/walletScreen')}
               >
-                Open scanner
+                {t('Open scanner')}
               </Button>
             ) : (
               <Button
@@ -53,20 +54,20 @@ export default function HomeScreen() {
                 style={styles.button}
                 onPress={async () => handleFetch()}
               >
-                Import issuer key
+                {t('Import issuer key')}
               </Button>
             )}
           </View>
         </>
       ) : isError ? (
         <>
-          <Text style={styles.errorText}>An error occurred</Text>
+          <Text style={styles.errorText}>{t('An error occurred')}</Text>
           <Button
             labelStyle={styles.buttonLabel}
             style={styles.button}
             onPress={() => handleFetch()}
           >
-            Retry
+            {t('Retry')}
           </Button>
         </>
       ) : (
@@ -108,5 +109,32 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginBottom: 40,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    color: 'white',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    backgroundColor: '#4e957d',
+    fontSize: 16,
+  },
+  inputAndroid: {
+    color: 'white',
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 0.5,
+    borderColor: 'gray',
+    borderRadius: 8,
+    backgroundColor: '#4e957d',
+    fontSize: 16,
+  },
+  iconContainer: {
+    top: 10,
+    right: 12,
   },
 });

@@ -1,0 +1,21 @@
+{
+    "Verifier App": "Verifier App",
+    "Open scanner": "Open scanner",
+    "Import issuer key":"Import issuer key",
+    "An error occurred":"An error occurred",
+    "Retry":"Retry",
+    "Cannot validate VC. Issuer key is missing.":"Cannot validate VC. Issuer key is missing.",
+    "VC has been validated": "VC has been validated",
+    "Invalid VC":"Invalid VC",
+    "There was a problem verifying the VC":"There was a problem verifying the VC",
+    "Loading":"Loading",
+    "Camera access is required for scanning the credential.":"Camera access is required for scanning the credential.",
+    "Grant Permission":"Grant Permission",
+    "INVALID CREDENTIAL":"INVALID CREDENTIAL",
+    "Home":"Home",
+    "Drivers License":"Drivers License",
+    "Name":"Name",
+    "Lastname":"Lastname",
+    "Category":"Category",
+    "Expiration date":"Expiration date"
+}

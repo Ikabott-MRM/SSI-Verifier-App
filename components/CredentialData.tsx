@@ -4,6 +4,7 @@ import { View } from './Themed';
 import React from 'react';
 import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
+import { useTranslation } from 'react-i18next';
 
 interface CredentialSubject {
   firstname: string;
@@ -38,6 +39,7 @@ export default function CredentialData({
   credPayload: Payload;
 }) {
   const router = useRouter();
+  const {t} = useTranslation();
 
   return (
     <Card style={styles.card}>
@@ -46,22 +48,22 @@ export default function CredentialData({
         source={require('../assets/images/valid-icon.png')}
       />
       <Card.Content>
-        <Text style={styles.title}>Drivers License</Text>
+        <Text style={styles.title}>{t('Drivers License')}</Text>
         <View style={styles.separator} />
         <Text style={styles.textCard}>
-          <Text style={styles.label}>Name: </Text>
+          <Text style={styles.label}>{t('Name')}: </Text>
           {credPayload.vc.credentialSubject?.firstname}
         </Text>
         <Text style={styles.textCard}>
-          <Text style={styles.label}>Lastname: </Text>
+          <Text style={styles.label}>{t('Lastname')}: </Text>
           {credPayload.vc.credentialSubject?.lastname}
         </Text>
         <Text style={styles.textCard}>
-          <Text style={styles.label}>Category: </Text>
+          <Text style={styles.label}>{t('Category')}: </Text>
           {credPayload.vc.credentialSubject?.licenseCateogry}
         </Text>
         <Text style={styles.textCard}>
-          <Text style={styles.label}>Expiration date: </Text>
+          <Text style={styles.label}>{t('Expiration date')}: </Text>
           {new Date(credPayload.vc.expirationDate).toISOString().split('T')[0]}
         </Text>
       </Card.Content>
@@ -71,7 +73,7 @@ export default function CredentialData({
           mode="contained"
           onPress={() => router.replace('/')}
         >
-          Home
+          {t('Home')}
         </Button>
       </Card.Actions>
     </Card>

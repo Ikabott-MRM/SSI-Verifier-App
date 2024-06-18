@@ -9,10 +9,10 @@ import { getPubKeyFromStore, verifyJWTSignature } from '../utils/helpers';
 import CredentialData from './CredentialData';
 import React from 'react';
 import { useRouter } from 'expo-router';
-// import { Image } from 'react-native';
 import { Image } from 'expo-image';
 import { Payload } from './CredentialData';
 import Toast from 'react-native-root-toast'
+import { useTranslation } from 'react-i18next';
 
 export default function CredentialsVerification() {
   const router = useRouter();
@@ -22,6 +22,7 @@ export default function CredentialsVerification() {
   const isFocused = useIsFocused();
   const [isValidSignature, setIsValidSignature] = useState<boolean>(false);
   const [credPayload, setCredPayload] = useState<Payload | null>(null);
+  const {t} = useTranslation();
 
   const handleBarCodeScanned = async ({ data }: { data: string }) => {
     try {
@@ -30,7 +31,7 @@ export default function CredentialsVerification() {
         console.log(
           'ERROR: There is no issuer public key to be used for VC signature verification',
         );
-        Toast.show('Cannot validate VC. Issuer key is missing.', {
+        Toast.show(t('Cannot validate VC. Issuer key is missing.'), {
           duration: Toast.durations.LONG,
         });
         return;
@@ -42,12 +43,12 @@ export default function CredentialsVerification() {
         if (res.vc) {
           setCredPayload(res);
         }
-        Toast.show('VC has been validated', {
+        Toast.show(t('VC has been validated'), {
           duration: Toast.durations.LONG,
         });
         return;
       }else{
-        Toast.show('Invalid VC', {
+        Toast.show(t('Invalid VC'), {
           duration: Toast.durations.LONG,
         });
       }
@@ -55,7 +56,7 @@ export default function CredentialsVerification() {
       if (e instanceof SyntaxError) {
         console.error('handleBarCodeScanned', e);
         setIsValidSignature(false);
-        Toast.show('There was a problem verifying the VC', {
+        Toast.show(t('There was a problem verifying the VC'), {
           duration: Toast.durations.LONG,
         });
         return;
@@ -75,7 +76,7 @@ export default function CredentialsVerification() {
 
   if (!permission) {
     // Permissions have not been loaded yet
-    return <Text>Loading...</Text>;
+    return <Text>{t('Loading')}...</Text>;
   }
 
   if (permission && !permission.granted) {
@@ -83,14 +84,14 @@ export default function CredentialsVerification() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>
-          Camera access is required for scanning the credential.
+          {t('Camera access is required for scanning the credential.')}
         </Text>
         <Button
           labelStyle={styles.buttonLabel}
           style={styles.button}
           onPress={handleRequestPermission}
         >
-          Grant Permission
+          {t('Grant Permission')}
         </Button>
       </View>
     );
@@ -117,13 +118,13 @@ export default function CredentialsVerification() {
               style={styles.image}
               source={require('../assets/images/invalid-icon.png')}
             />
-            <Text style={styles.textCard}>INVALID CREDENTIAL</Text>
+            <Text style={styles.textCard}>{t('INVALID CREDENTIAL')}</Text>
             <Button
               labelStyle={styles.buttonLabel}
               style={styles.button}
               onPress={() => router.replace('/')}
             >
-              Home
+              {t('Home')}
             </Button>
           </Card.Content>
         </Card>
