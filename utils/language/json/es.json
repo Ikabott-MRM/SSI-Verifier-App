@@ -1,7 +1,7 @@
 {
   "Verifier App": "App Verificadora",
   "Open scanner": "Abrir escaner",
-  "Import issuer key": "Importar clave pública",
+  "Import key": "Importar clave",
   "An error occurred": "Ha ocurrido un error",
   "Retry": "Reintentar",
   "Cannot validate VC. Issuer key is missing.": "No se puede validar la VC. Falta la clave pública del emisor",
@@ -17,5 +17,10 @@
   "Name": "Nombre",
   "Lastname": "Apellido",
   "Category": "Categoría",
-  "Expiration date": "Vencimiento"
+  "Expiration date": "Vencimiento",
+  "Issuer public key has been saved":"La clave pública del emisor ha sido guardada",
+  "Are you sure you want to import a new key?":"Ya existe una clave pública. Desea importar una nueva y reemplazarla?",
+  "No":"No",
+  "Yes":"Si"
+
 }

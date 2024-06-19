@@ -1,7 +1,7 @@
 {
   "Verifier App": "Verifier App",
   "Open scanner": "Open scanner",
-  "Import issuer key": "Import issuer key",
+  "Import key": "Import key",
   "An error occurred": "An error occurred",
   "Retry": "Retry",
   "Cannot validate VC. Issuer key is missing.": "Cannot validate VC. Issuer key is missing.",
@@ -17,5 +17,9 @@
   "Name": "Name",
   "Lastname": "Lastname",
   "Category": "Category",
-  "Expiration date": "Expiration date"
+  "Expiration date": "Expiration date",
+  "Issuer public key has been saved":"Issuer public key has been saved",
+  "Are you sure you want to import a new key?":"Are you sure you want to import a new key?",
+  "No":"No",
+  "Yes":"Yes"
 }

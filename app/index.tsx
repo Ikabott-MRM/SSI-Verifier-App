@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, Modal, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, ActivityIndicator } from 'react-native-paper';
 import '../shim';
@@ -10,18 +10,33 @@ import {
   KEY_DID_SECURE_STORE,
 } from '../utils/helpers';
 import { useTranslation } from 'react-i18next';
+import Toast from 'react-native-root-toast';
 
 export default function HomeScreen() {
   const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
     Platform.OS !== 'web' ? getPubKeyFromStore() : null,
   );
+  const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
   const { t } = useTranslation();
 
+  // const handleFetch = () => {
+  //   console.log('fetching issuer pub keys');
+  //   refetch(); // Trigger the fetch when the button is pressed
+  // };
+
   const handleFetch = () => {
-    console.log('fetching issuer pub keys');
-    refetch(); // Trigger the fetch when the button is pressed
+    if (issuerPubKey) {
+      setModalVisible(true);
+    } else {
+      refetch();// Trigger the fetch when the button is pressed
+    }
+  };
+
+  const confirmFetch = () => {
+    setModalVisible(false);
+    refetch();
   };
 
   useEffect(() => {
@@ -31,32 +46,55 @@ export default function HomeScreen() {
       const x = data.x;
       savePubKeyToStore(KEY_DID_SECURE_STORE, x);
       setIssuerPubKey(x!);
+      Toast.show(t('Issuer public key has been saved'), {
+        duration: Toast.durations.LONG,
+      });
     }
   }, [data, setIssuerPubKey]);
 
   return (
     <View style={styles.container}>
+       <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalText}>{t('Are you sure you want to import a new key?')}</Text>
+            <View style={styles.modalButtons}>
+              <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(false)}>
+                <Text style={styles.modalButtonText}>{t('No')}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.modalButton} onPress={async () =>confirmFetch()}>
+                <Text style={styles.modalButtonText}>{t('Yes')}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
       {!isLoading ? (
         <>
           <Text style={styles.title}>{t('Verifier App')}</Text>
           <View style={styles.buttons}>
-            {issuerPubKey ? (
-              <Button
+                <Button
                 labelStyle={styles.buttonLabel}
                 style={styles.button}
                 onPress={() => router.replace('/walletScreen')}
+                disabled={issuerPubKey?false:true}
               >
                 {t('Open scanner')}
               </Button>
-            ) : (
               <Button
                 labelStyle={styles.buttonLabel}
                 style={styles.button}
                 onPress={async () => handleFetch()}
               >
-                {t('Import issuer key')}
+                {t('Import key')}
               </Button>
-            )}
           </View>
         </>
       ) : isError ? (
@@ -94,14 +132,17 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
     marginHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
   buttons: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonLabel: {
     color: 'white',
+    textAlign: 'center',
   },
   title: {
     fontSize: 40,
@@ -110,31 +151,40 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 40,
   },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    color: 'white',
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    backgroundColor: '#4e957d',
-    fontSize: 16,
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  inputAndroid: {
-    color: 'white',
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 0.5,
-    borderColor: 'gray',
-    borderRadius: 8,
-    backgroundColor: '#4e957d',
-    fontSize: 16,
+  modalContainer: {
+    width: 300,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    alignItems: 'center',
   },
-  iconContainer: {
-    top: 10,
-    right: 12,
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  modalButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginHorizontal: 5,
+    backgroundColor: '#4e957d',
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
