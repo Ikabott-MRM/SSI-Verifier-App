@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 export default function Layout() {
   const queryClient = new QueryClient();
   const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (value: string) => {
     i18n.changeLanguage(value);
@@ -41,27 +41,27 @@ export default function Layout() {
                   />
                 ) : null,
               headerRight: () => (
-                <View style={{ paddingRight: 5 }} >
-          <RNPickerSelect
-            onValueChange={(value: string) => changeLanguage(value)}
-            items={[
-              { key: 0, label: 'Español', value: 'es' },
-              { key: 1, label: 'English', value: 'en' },
-            ]}
-            placeholder={{}}
-            style={{
-              inputIOS: {
-                color: 'white',
-                fontSize: 14,
-              },
-              inputAndroid: {
-                color: 'white',
-                fontSize: 14,
-              },
-            }}
-          />
-        </View>
-              )
+                <View style={{ paddingRight: 5 }}>
+                  <RNPickerSelect
+                    onValueChange={(value: string) => changeLanguage(value)}
+                    items={[
+                      { key: 0, label: 'Español', value: 'es' },
+                      { key: 1, label: 'English', value: 'en' },
+                    ]}
+                    placeholder={{}}
+                    style={{
+                      inputIOS: {
+                        color: 'white',
+                        fontSize: 14,
+                      },
+                      inputAndroid: {
+                        color: 'white',
+                        fontSize: 14,
+                      },
+                    }}
+                  />
+                </View>
+              ),
             }}
           />
         </PaperProvider>

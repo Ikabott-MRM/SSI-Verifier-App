@@ -17,7 +17,7 @@ export default function HomeScreen() {
   );
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleFetch = () => {
     console.log('fetching issuer pub keys');

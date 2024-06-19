@@ -11,7 +11,7 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { Payload } from './CredentialData';
-import Toast from 'react-native-root-toast'
+import Toast from 'react-native-root-toast';
 import { useTranslation } from 'react-i18next';
 
 export default function CredentialsVerification() {
@@ -22,7 +22,7 @@ export default function CredentialsVerification() {
   const isFocused = useIsFocused();
   const [isValidSignature, setIsValidSignature] = useState<boolean>(false);
   const [credPayload, setCredPayload] = useState<Payload | null>(null);
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const handleBarCodeScanned = async ({ data }: { data: string }) => {
     try {
@@ -47,7 +47,7 @@ export default function CredentialsVerification() {
           duration: Toast.durations.LONG,
         });
         return;
-      }else{
+      } else {
         Toast.show(t('Invalid VC'), {
           duration: Toast.durations.LONG,
         });
@@ -65,7 +65,7 @@ export default function CredentialsVerification() {
   };
 
   useEffect(() => {
-    if (!permission || !permission.granted ) {
+    if (!permission || !permission.granted) {
       requestPermission();
     }
   }, []);

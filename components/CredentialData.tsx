@@ -39,7 +39,7 @@ export default function CredentialData({
   credPayload: Payload;
 }) {
   const router = useRouter();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Card style={styles.card}>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4e957d',
   },
   image: {
-    marginLeft:'30%',
+    marginLeft: '30%',
     width: 100,
     height: 100,
     marginBottom: 20,
