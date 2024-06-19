@@ -18,8 +18,8 @@
   "Lastname": "Lastname",
   "Category": "Category",
   "Expiration date": "Expiration date",
-  "Issuer public key has been saved":"Issuer public key has been saved",
-  "Are you sure you want to import a new key?":"Are you sure you want to import a new key?",
-  "No":"No",
-  "Yes":"Yes"
+  "Issuer public key has been saved": "Issuer public key has been saved",
+  "Are you sure you want to import a new key?": "Are you sure you want to import a new key?",
+  "No": "No",
+  "Yes": "Yes"
 }

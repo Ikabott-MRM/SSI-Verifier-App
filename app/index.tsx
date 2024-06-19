@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, Modal, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, ActivityIndicator } from 'react-native-paper';
 import '../shim';
@@ -21,16 +28,11 @@ export default function HomeScreen() {
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
   const { t } = useTranslation();
 
-  // const handleFetch = () => {
-  //   console.log('fetching issuer pub keys');
-  //   refetch(); // Trigger the fetch when the button is pressed
-  // };
-
   const handleFetch = () => {
     if (issuerPubKey) {
       setModalVisible(true);
     } else {
-      refetch();// Trigger the fetch when the button is pressed
+      refetch(); // Trigger the fetch when the button is pressed
     }
   };
 
@@ -54,7 +56,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-       <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -64,12 +66,20 @@ export default function HomeScreen() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalText}>{t('Are you sure you want to import a new key?')}</Text>
+            <Text style={styles.modalText}>
+              {t('Are you sure you want to import a new key?')}
+            </Text>
             <View style={styles.modalButtons}>
-              <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(false)}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => setModalVisible(false)}
+              >
                 <Text style={styles.modalButtonText}>{t('No')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.modalButton} onPress={async () =>confirmFetch()}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={async () => confirmFetch()}
+              >
                 <Text style={styles.modalButtonText}>{t('Yes')}</Text>
               </TouchableOpacity>
             </View>
@@ -80,21 +90,21 @@ export default function HomeScreen() {
         <>
           <Text style={styles.title}>{t('Verifier App')}</Text>
           <View style={styles.buttons}>
-                <Button
-                labelStyle={styles.buttonLabel}
-                style={styles.button}
-                onPress={() => router.replace('/walletScreen')}
-                disabled={issuerPubKey?false:true}
-              >
-                {t('Open scanner')}
-              </Button>
-              <Button
-                labelStyle={styles.buttonLabel}
-                style={styles.button}
-                onPress={async () => handleFetch()}
-              >
-                {t('Import key')}
-              </Button>
+            <Button
+              labelStyle={styles.buttonLabel}
+              style={styles.button}
+              onPress={() => router.replace('/walletScreen')}
+              disabled={issuerPubKey ? false : true}
+            >
+              {t('Open scanner')}
+            </Button>
+            <Button
+              labelStyle={styles.buttonLabel}
+              style={styles.button}
+              onPress={async () => handleFetch()}
+            >
+              {t('Import key')}
+            </Button>
           </View>
         </>
       ) : isError ? (

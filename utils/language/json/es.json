@@ -18,9 +18,8 @@
   "Lastname": "Apellido",
   "Category": "Categoría",
   "Expiration date": "Vencimiento",
-  "Issuer public key has been saved":"La clave pública del emisor ha sido guardada",
-  "Are you sure you want to import a new key?":"Ya existe una clave pública. Desea importar una nueva y reemplazarla?",
-  "No":"No",
-  "Yes":"Si"
-
+  "Issuer public key has been saved": "La clave pública del emisor ha sido guardada",
+  "Are you sure you want to import a new key?": "Ya existe una clave pública. Desea importar una nueva y reemplazarla?",
+  "No": "No",
+  "Yes": "Si"
 }
