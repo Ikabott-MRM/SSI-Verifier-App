@@ -70,10 +70,6 @@ export default function CredentialsVerification() {
     }
   }, []);
 
-  const handleRequestPermission = () => {
-    requestPermission();
-  };
-
   if (!permission) {
     // Permissions have not been loaded yet
     return <Text>{t('Loading')}...</Text>;
@@ -86,13 +82,15 @@ export default function CredentialsVerification() {
         <Text style={styles.text}>
           {t('Camera access is required for scanning the credential.')}
         </Text>
+        <View style={styles.buttons}>
         <Button
           labelStyle={styles.buttonLabel}
           style={styles.button}
-          onPress={handleRequestPermission}
+          onPress={requestPermission}
         >
           {t('Grant Permission')}
         </Button>
+        </View>
       </View>
     );
   }
@@ -185,6 +183,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 2,
     bottom: 2,
+  },
+  buttons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonLabel: {
     color: 'white',

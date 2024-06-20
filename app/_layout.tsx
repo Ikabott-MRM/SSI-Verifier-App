@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 export default function Layout() {
   const queryClient = new QueryClient();
   const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const changeLanguage = (value: string) => {
     i18n.changeLanguage(value);
