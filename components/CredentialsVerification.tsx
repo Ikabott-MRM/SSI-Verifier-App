@@ -83,13 +83,13 @@ export default function CredentialsVerification() {
           {t('Camera access is required for scanning the credential.')}
         </Text>
         <View style={styles.buttons}>
-        <Button
-          labelStyle={styles.buttonLabel}
-          style={styles.button}
-          onPress={requestPermission}
-        >
-          {t('Grant Permission')}
-        </Button>
+          <Button
+            labelStyle={styles.buttonLabel}
+            style={styles.button}
+            onPress={requestPermission}
+          >
+            {t('Grant Permission')}
+          </Button>
         </View>
       </View>
     );

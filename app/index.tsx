@@ -90,14 +90,15 @@ export default function HomeScreen() {
         <>
           <Text style={styles.title}>{t('Verifier App')}</Text>
           <View style={styles.buttons}>
-            <Button
-              labelStyle={styles.buttonLabel}
-              style={styles.button}
-              onPress={() => router.replace('/walletScreen')}
-              disabled={issuerPubKey ? false : true}
-            >
-              {t('Open scanner')}
-            </Button>
+            {issuerPubKey && (
+              <Button
+                labelStyle={styles.buttonLabel}
+                style={styles.button}
+                onPress={() => router.replace('/walletScreen')}
+              >
+                {t('Open scanner')}
+              </Button>
+            )}
             <Button
               labelStyle={styles.buttonLabel}
               style={styles.button}

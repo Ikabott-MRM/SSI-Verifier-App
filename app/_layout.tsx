@@ -1,19 +1,22 @@
-import { Stack } from 'expo-router';
-import React, { useEffect } from 'react';
+import { Stack, useRouter, useSegments } from 'expo-router';
+import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PaperProvider } from 'react-native-paper';
+import { PaperProvider, IconButton } from 'react-native-paper';
 import { useAssets } from 'expo-asset';
 import { Image } from 'expo-image';
-import { ImageSourcePropType, View } from 'react-native';
+import { ImageSourcePropType, View, StyleSheet } from 'react-native';
 import { RootSiblingParent } from 'react-native-root-siblings';
 import '@/utils/language/i18nextConfig';
-import RNPickerSelect from 'react-native-picker-select';
 import { useTranslation } from 'react-i18next';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import CustomDropdown from '@/components/CustomDropdown';
 
 export default function Layout() {
   const queryClient = new QueryClient();
   const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);
   const { i18n } = useTranslation();
+  const segments = useSegments();
+  const router = useRouter();
 
   const changeLanguage = (value: string) => {
     i18n.changeLanguage(value);
@@ -40,26 +43,19 @@ export default function Layout() {
                     source={assets[0] as ImageSourcePropType}
                   />
                 ) : null,
+              headerLeft: () =>
+                segments.length > 0 &&
+                segments[0] !== '' && (
+                  <IconButton
+                    icon={() => (
+                      <Ionicons name="home-outline" size={24} color="white" />
+                    )}
+                    onPress={() => router.replace('/')}
+                  />
+                ),
               headerRight: () => (
                 <View style={{ paddingRight: 5 }}>
-                  <RNPickerSelect
-                    onValueChange={(value: string) => changeLanguage(value)}
-                    items={[
-                      { key: 0, label: 'Español', value: 'es' },
-                      { key: 1, label: 'English', value: 'en' },
-                    ]}
-                    placeholder={{}}
-                    style={{
-                      inputIOS: {
-                        color: 'white',
-                        fontSize: 14,
-                      },
-                      inputAndroid: {
-                        color: 'white',
-                        fontSize: 14,
-                      },
-                    }}
-                  />
+                  <CustomDropdown />
                 </View>
               ),
             }}
