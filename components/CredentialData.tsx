@@ -10,7 +10,7 @@ interface CredentialSubject {
   firstname: string;
   id: string;
   lastname: string;
-  licenseCateogry: string;
+  licenseCategory: string;
 }
 
 interface VC {
@@ -60,7 +60,7 @@ export default function CredentialData({
         </Text>
         <Text style={styles.textCard}>
           <Text style={styles.label}>{t('Category')}: </Text>
-          {credPayload.vc.credentialSubject?.licenseCateogry}
+          {credPayload.vc.credentialSubject?.licenseCategory}
         </Text>
         <Text style={styles.textCard}>
           <Text style={styles.label}>{t('Expiration date')}: </Text>
