@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Platform, Modal, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, ActivityIndicator } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 import '../shim';
 import useIssuerPubKeyQuery from '@/hooks/useIssuerPubKey';
 import { getPubKeyFromStore, savePubKeyToStore, KEY_DID_SECURE_STORE } from '../utils/helpers';
@@ -77,7 +78,7 @@ export default function HomeScreen() {
       {!isLoading ? (
         <>
           <Text style={styles.h1}>{t('Verifier App')}</Text>
-          <View style={styles.buttons}>
+          <View>
             {issuerPubKey && (
               <Button
                 labelStyle={styles.buttonLabel}
@@ -86,7 +87,7 @@ export default function HomeScreen() {
                 onPress={() => router.replace('/walletScreen')}
               >
                 <View style={styles.buttonContent}>
-                  <Icon name="qrcode-scan" size={20} color="#fff" style={styles.buttonIcon} />
+                  <Ionicons name="qr-code-outline" size={20} color="#fff" style={styles.buttonIcon}/>
                   <Text style={styles.buttonLabel}>{t('Open scanner')}</Text>
                 </View>
               </Button>
