@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: '#4e957d',
+    backgroundColor: '#374D6B',
   },
   image: {
     marginLeft: '30%',
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: 'darkgreen',
+    color: '#374D6B',
     fontWeight: 'bold',
     marginBottom: 10,
   },
