@@ -148,8 +148,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   camera: {
-    width: 250,
-    height: 250,
+    width: 300,
+    height: 300,
+    borderRadius: 10,
   },
   card: {
     borderRadius: 10,
