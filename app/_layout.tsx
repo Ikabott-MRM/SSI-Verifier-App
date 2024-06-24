@@ -29,7 +29,7 @@ export default function Layout() {
           <Stack
             screenOptions={{
               headerStyle: {
-                backgroundColor: '#696d6b',
+                backgroundColor: '#374D6B',
               },
               headerTintColor: '#fff',
               headerTitleStyle: {
@@ -53,11 +53,12 @@ export default function Layout() {
                     onPress={() => router.replace('/')}
                   />
                 ),
-              headerRight: () => (
+              /* Se comenta Lenguaje para mantener sincronia de diseño entre ciudadano y verificador, esto debe ser implementado en Ciudadano para poder habilitarlo */
+              /*headerRight: () => (
                 <View style={{ paddingRight: 5 }}>
                   <CustomDropdown />
                 </View>
-              ),
+              ),*/
             }}
           />
         </PaperProvider>
