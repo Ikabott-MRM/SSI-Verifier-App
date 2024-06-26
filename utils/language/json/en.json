@@ -21,5 +21,7 @@
   "Issuer public key has been saved": "Issuer public key has been saved",
   "Are you sure you want to import a new key?": "Are you sure you want to import a new key?",
   "No": "No",
-  "Yes": "Yes"
+  "Yes": "Yes", 
+  "VC has expired": "VC has expired",
+  "Ok":"Ok"
 }

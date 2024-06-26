@@ -2,8 +2,15 @@ import * as SecureStore from 'expo-secure-store';
 export const KEY_DID_SECURE_STORE = 'iovf_issuer_pub_key';
 import nacl from 'tweetnacl';
 import * as naclUtil from 'tweetnacl-util';
+import { Payload } from '@/components/CredentialData';
+const isJwtExpired = (exp: number) => {
+  return new Date() >= new Date(exp * 1000);
+};
 
-export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
+export const verifyJWTSignature = (
+  jwt: string,
+  issuerPubKey: string,
+): { payload: Payload | null; isExpired: boolean } | null => {
   try {
     const [headerEncoded, payloadEncoded, signatureEncoded] = jwt.split('.');
 
@@ -19,32 +26,41 @@ export const verifyJWTSignature = (jwt: string, issuerPubKey: string) => {
     console.log('payload');
     console.log(payload);
 
-    const signature = Buffer.from(signatureEncoded, 'base64');
-    console.log('signature');
-    console.log(signature);
+    const isExpired = isJwtExpired(payload.exp);
 
-    // Ensure the JWT uses EdDSA algorithm
-    if (header.alg !== 'EdDSA') {
-      throw new Error('Invalid algorithm');
-    }
+    if (!isExpired) {
+      const signature = Buffer.from(signatureEncoded, 'base64');
+      console.log('signature');
+      console.log(signature);
 
-    const decodedPublicKey = Buffer.from(issuerPubKey, 'base64');
-    console.log('decoded pub key');
-    console.log(decodedPublicKey);
+      // Ensure the JWT uses EdDSA algorithm
+      if (header.alg !== 'EdDSA') {
+        throw new Error('Invalid algorithm');
+      }
 
-    // Verify the signature
-    const isVerified = nacl.sign.detached.verify(
-      naclUtil.decodeUTF8(`${headerEncoded}.${payloadEncoded}`),
-      signature,
-      decodedPublicKey,
-    );
+      const decodedPublicKey = Buffer.from(issuerPubKey, 'base64');
+      console.log('decoded pub key');
+      console.log(decodedPublicKey);
 
-    if (isVerified) {
-      console.log('JWT signature verified successfully');
-      console.log('Payload:', payload);
-      return payload;
+      //TODO antes de verificar la firma, verifico si esta vencida y ya ni verifico firma sino
+
+      // Verify the signature
+      const isVerified = nacl.sign.detached.verify(
+        naclUtil.decodeUTF8(`${headerEncoded}.${payloadEncoded}`),
+        signature,
+        decodedPublicKey,
+      );
+
+      if (isVerified) {
+        console.log('JWT signature verified successfully');
+        console.log('Payload:', payload);
+        return { payload, isExpired };
+      } else {
+        return null;
+      }
     } else {
-      return null;
+      console.log('JWT has expired');
+      return { payload, isExpired };
     }
   } catch (error) {
     console.error('Error verifying JWT signature:', error);

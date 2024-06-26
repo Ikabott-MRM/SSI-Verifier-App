@@ -21,6 +21,7 @@ export default function CredentialsVerification() {
   const [scanData, setScanData] = useState<string>('');
   const isFocused = useIsFocused();
   const [isValidSignature, setIsValidSignature] = useState<boolean>(false);
+  const [isJwtExpired, setIsJwtExpired] = useState<boolean>(false);
   const [credPayload, setCredPayload] = useState<Payload | null>(null);
   const { t } = useTranslation();
 
@@ -37,20 +38,31 @@ export default function CredentialsVerification() {
         return;
       }
 
-      const res = await verifyJWTSignature(data, issuerPubKey);
-      if (res) {
+      // const res = verifyJWTSignature(data, issuerPubKey);
+      const { payload, isExpired } =  verifyJWTSignature(data, issuerPubKey) ?? {};
+      if (!isExpired && Boolean(payload)) {
         setIsValidSignature(true);
-        if (res.vc) {
-          setCredPayload(res);
+        if (payload?.vc) {
+          setCredPayload(payload);
         }
         Toast.show(t('VC has been validated'), {
           duration: Toast.durations.LONG,
         });
         return;
-      } else {
+      } else if(!isExpired && !Boolean(payload)) {
         Toast.show(t('Invalid VC'), {
           duration: Toast.durations.LONG,
         });
+      }else if(isExpired){
+        setIsValidSignature(false);
+        setIsJwtExpired(true);
+        if (payload?.vc) {
+          setCredPayload(payload);
+        }
+        Toast.show(t('VC has expired'), {
+          duration: Toast.durations.LONG,
+        });
+        return;
       }
     } catch (e) {
       if (e instanceof SyntaxError) {
@@ -117,12 +129,13 @@ export default function CredentialsVerification() {
               source={require('../assets/images/invalid-icon.png')}
             />
             <Text style={styles.textCard}>{t('INVALID CREDENTIAL')}</Text>
+            {isJwtExpired && <Text style={styles.paragraph}>{t('VC has expired')}</Text> }
             <Button
               labelStyle={styles.buttonLabel}
               style={styles.button}
               onPress={() => router.replace('/')}
             >
-              {t('Home')}
+              {t('Ok')}
             </Button>
           </Card.Content>
         </Card>
@@ -170,7 +183,14 @@ const styles = StyleSheet.create({
   textCard: {
     fontWeight: 'bold',
     color: 'rgba(255, 0, 0, 0.7)',
-    marginBottom: 80,
+    marginBottom: 15,
+  },
+  paragraph:{
+    padding: 5,
+    fontSize: 12,
+    color: '#cc0000',
+    textAlign: 'center',
+    marginBottom: 50,
   },
   buttonContainer: {
     position: 'absolute',
@@ -178,12 +198,12 @@ const styles = StyleSheet.create({
     right: 10,
   },
   button: {
-    backgroundColor: '#4e957d',
     borderRadius: 10,
-    padding: 5,
+    padding: 2,
     position: 'absolute',
     right: 2,
     bottom: 2,
+    backgroundColor: '#374D6B',
   },
   buttons: {
     flexDirection: 'row',
