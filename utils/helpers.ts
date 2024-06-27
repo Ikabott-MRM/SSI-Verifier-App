@@ -42,8 +42,6 @@ export const verifyJWTSignature = (
       console.log('decoded pub key');
       console.log(decodedPublicKey);
 
-      //TODO antes de verificar la firma, verifico si esta vencida y ya ni verifico firma sino
-
       // Verify the signature
       const isVerified = nacl.sign.detached.verify(
         naclUtil.decodeUTF8(`${headerEncoded}.${payloadEncoded}`),
