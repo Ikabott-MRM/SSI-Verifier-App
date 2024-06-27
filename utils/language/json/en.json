@@ -2,7 +2,7 @@
   "Verifier App": "Verifier App",
   "Open scanner": "Open scanner",
   "Import key": "Import key",
-  "An error occurred": "An error occurred",
+  "An error occurred. Please try again or contact support.": "An error occurred. Please try again or contact support.",
   "Retry": "Retry",
   "Cannot validate VC. Issuer key is missing.": "Cannot validate VC. Issuer key is missing.",
   "VC has been validated": "VC has been validated",

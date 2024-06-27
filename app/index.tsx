@@ -88,7 +88,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </Modal>
-      {!isLoading ? (
+      {!isLoading && !isError? (
         <>
           <Text style={styles.h1}>{t('Verifier App')}</Text>
           <View>
@@ -121,7 +121,8 @@ export default function HomeScreen() {
         </>
       ) : isError ? (
         <>
-          <Text style={styles.errorText}>{t('An error occurred')}</Text>
+          <Text style={styles.errorText}>{t('An error occurred.')}</Text>
+          <Text style={styles.errorText}>{t('Please try again or contact support.')}</Text>          
           <Button
             labelStyle={styles.buttonLabel}
             style={styles.button}
@@ -150,9 +151,12 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   errorText: {
-    color: 'red',
+    color: '#6d6d6d',
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 8,
+    alignSelf: 'center',
+    justifyContent: 'center',
+
   },
   button: {
     marginTop: 20,

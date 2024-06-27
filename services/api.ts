@@ -5,9 +5,14 @@ export default {
   getIssuerPubKey: async (): Promise<JWK> => {
     try {
       const response = await axios.get('/issuerAgent/issuerPubK');
-      return response?.data?.data;
+      console.log(response)
+      if (response) {
+        return response.data?.data;
+      } else {
+        throw new Error(`No data returned from API`);
+      }
     } catch (e: any) {
-      throw e?.response?.data;
+      throw new Error(e?.response?.data || `Failed to fetch issuer public key`);
     }
   },
 };
