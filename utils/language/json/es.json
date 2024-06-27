@@ -3,7 +3,7 @@
   "Open scanner": "Verificar Credencial",
   "Import key": "Importar clave",
   "An error occurred.": "Ha ocurrido un error.",
-  "Please try again or contact support.":"Por favor intente nuevamente o contacte a soporte.",
+  "Please try again or contact support.":"Por favor, intente nuevamente o contacte a soporte.",
   "Retry": "Reintentar",
   "Cannot validate VC. Issuer key is missing.": "No se puede validar la VC. Falta la clave pública del emisor",
   "VC has been validated": "VC ha sido validada",
