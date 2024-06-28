@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Platform, Modal, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { Button, ActivityIndicator } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import '../shim';
 import useIssuerPubKeyQuery from '@/hooks/useIssuerPubKey';
-import { getPubKeyFromStore, savePubKeyToStore, KEY_DID_SECURE_STORE } from '../utils/helpers';
+import {
+  getPubKeyFromStore,
+  savePubKeyToStore,
+  KEY_DID_SECURE_STORE,
+} from '../utils/helpers';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-root-toast';
 
 export default function HomeScreen() {
-  const [issuerPubKey, setIssuerPubKey] = useState<string | null>(Platform.OS !== 'web' ? getPubKeyFromStore() : null);
+  const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
+    Platform.OS !== 'web' ? getPubKeyFromStore() : null,
+  );
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
@@ -75,7 +88,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </Modal>
-      {!isLoading ? (
+      {!isLoading && !isError? (
         <>
           <Text style={styles.h1}>{t('Verifier App')}</Text>
           <View>
@@ -87,7 +100,12 @@ export default function HomeScreen() {
                 onPress={() => router.replace('/walletScreen')}
               >
                 <View style={styles.buttonContent}>
-                  <Ionicons name="qr-code-outline" size={20} color="#fff" style={styles.buttonIcon}/>
+                  <Ionicons
+                    name="qr-code-outline"
+                    size={20}
+                    color="#fff"
+                    style={styles.buttonIcon}
+                  />
                   <Text style={styles.buttonLabel}>{t('Open scanner')}</Text>
                 </View>
               </Button>
@@ -103,7 +121,8 @@ export default function HomeScreen() {
         </>
       ) : isError ? (
         <>
-          <Text style={styles.errorText}>{t('An error occurred')}</Text>
+          <Text style={styles.errorText}>{t('An error occurred.')}</Text>
+          <Text style={styles.errorText}>{t('Please try again or contact support.')}</Text>          
           <Button
             labelStyle={styles.buttonLabel}
             style={styles.button}
@@ -132,9 +151,12 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   errorText: {
-    color: 'red',
+    color: '#6d6d6d',
     fontSize: 16,
-    marginBottom: 20,
+    marginBottom: 8,
+    alignSelf: 'center',
+    justifyContent: 'center',
+
   },
   button: {
     marginTop: 20,
@@ -144,8 +166,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 25,
     fontSize: 16,
-    fontFamily: 'Roboto', 
-    backgroundColor:'#374D6B',
+    fontFamily: 'Roboto',
+    backgroundColor: '#374D6B',
   },
   buttonImport: {
     marginTop: 400,
@@ -155,19 +177,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 25,
     fontSize: 16,
-    fontFamily: 'Roboto', 
+    fontFamily: 'Roboto',
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#374D6B',
   },
   buttonLabelImport: {
-    fontSize: 16, 
+    fontSize: 16,
     textAlign: 'left',
     paddingHorizontal: 0,
     fontWeight: 'bold',
-    fontFamily: 'Roboto', 
+    fontFamily: 'Roboto',
     color: '#374D6B',
-    marginLeft: 10, 
+    marginLeft: 10,
   },
   buttonContent: {
     flexDirection: 'row',
@@ -175,16 +197,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonLabel: {
-    fontSize: 16, 
+    fontSize: 16,
     textAlign: 'left',
     paddingHorizontal: 0,
     fontWeight: 'bold',
-    fontFamily: 'Roboto', 
+    fontFamily: 'Roboto',
     color: '#ffffff',
-    marginLeft: 10, 
+    marginLeft: 10,
   },
   buttonIcon: {
-    marginRight: 1, 
+    marginRight: 1,
   },
   title: {
     fontSize: 40,

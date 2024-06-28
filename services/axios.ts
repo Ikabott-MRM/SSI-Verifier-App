@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
   baseURL:
-    'https://identity-api.mangofield-2f4eea69.brazilsouth.azurecontainerapps.io/',
+  process.env.EXPO_PUBLIC_API_BASE_URL,
 });
 
 export default instance;

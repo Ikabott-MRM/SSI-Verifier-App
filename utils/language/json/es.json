@@ -2,7 +2,8 @@
   "Verifier App": "Bienvenidos a la App Verificadora de IDA DEMO",
   "Open scanner": "Verificar Credencial",
   "Import key": "Importar clave",
-  "An error occurred": "Ha ocurrido un error",
+  "An error occurred.": "Ha ocurrido un error.",
+  "Please try again or contact support.":"Por favor, intente nuevamente o contacte a soporte.",
   "Retry": "Reintentar",
   "Cannot validate VC. Issuer key is missing.": "No se puede validar la VC. Falta la clave pública del emisor",
   "VC has been validated": "VC ha sido validada",
@@ -21,5 +22,7 @@
   "Issuer public key has been saved": "La clave pública del emisor ha sido guardada",
   "Are you sure you want to import a new key?": "Ya existe una clave pública. ¿Desea importar una nueva y reemplazarla?",
   "No": "No",
-  "Yes": "Sí"
+  "Yes": "Sí",
+  "VC has expired":"La credencial está vencida",
+  "Ok":"Aceptar"
 }
