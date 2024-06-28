@@ -128,8 +128,10 @@ export default function CredentialsVerification() {
               style={styles.image}
               source={require('../assets/images/invalid-icon.png')}
             />
+            <View style={styles.errorCard}>
             <Text style={styles.textCard}>{t('INVALID CREDENTIAL')}</Text>
             {isJwtExpired && <Text style={styles.paragraph}>{t('VC has expired')}</Text> }
+            </View>
             <Button
               labelStyle={styles.buttonLabel}
               style={styles.button}
@@ -151,6 +153,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#98999b',
     gap: 15,
+    width: '100%',
+  },
+  errorCard: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'transparent',
+    marginBottom:40,
     width: '100%',
   },
   text: {
@@ -183,14 +192,12 @@ const styles = StyleSheet.create({
   textCard: {
     fontWeight: 'bold',
     color: 'rgba(255, 0, 0, 0.7)',
-    marginBottom: 15,
   },
   paragraph:{
     padding: 5,
     fontSize: 12,
     color: '#cc0000',
     textAlign: 'center',
-    marginBottom: 50,
   },
   buttonContainer: {
     position: 'absolute',
