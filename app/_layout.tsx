@@ -38,10 +38,12 @@ export default function Layout() {
               headerTitleAlign: 'center',
               headerTitle: () =>
                 assets ? (
-                  <Image
-                    style={{ width: 80, height: 50, padding: 2 }}
-                    source={assets[0] as ImageSourcePropType}
-                  />
+                  <View style={styles.headerContainer}>
+                    <Image
+                      style={styles.headerImage}
+                      source={assets[0] as ImageSourcePropType}
+                    />
+                  </View>
                 ) : null,
               headerLeft: () =>
                 segments.length > 0 &&
@@ -66,3 +68,16 @@ export default function Layout() {
     </QueryClientProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  headerContainer: {
+    height: 50, 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerImage: {
+    width: 90,
+    height: 50,
+    padding: 2,
+  },
+});
