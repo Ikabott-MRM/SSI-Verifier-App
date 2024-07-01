@@ -99,7 +99,7 @@ export default function HomeScreen() {
                 contentStyle={styles.buttonContent}
                 onPress={() => router.replace('/walletScreen')}
               >
-                <View style={styles.buttonContent}>
+                <View style={styles.buttonInnerContent}>
                   <Ionicons
                     name="qr-code-outline"
                     size={20}
@@ -113,6 +113,7 @@ export default function HomeScreen() {
             <Button
               labelStyle={styles.buttonLabelImport}
               style={styles.buttonImport}
+              contentStyle={styles.buttonContent}
               onPress={async () => handleFetch()}
             >
               {t('Import key')}
@@ -122,7 +123,7 @@ export default function HomeScreen() {
       ) : isError ? (
         <>
           <Text style={styles.errorText}>{t('An error occurred.')}</Text>
-          <Text style={styles.errorText}>{t('Please try again or contact support.')}</Text>          
+          <Text style={styles.errorText}>{t('Please try again or contact support.')}</Text>
           <Button
             labelStyle={styles.buttonLabel}
             style={styles.button}
@@ -156,10 +157,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     alignSelf: 'center',
     justifyContent: 'center',
-
   },
   button: {
-    marginTop: 20,
+    marginTop: 180,
     width: 250,
     height: 50,
     justifyContent: 'center',
@@ -170,13 +170,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#374D6B',
   },
   buttonImport: {
-    marginTop: 400,
+    marginTop: 200,
     width: 250,
     height: 50,
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 25,
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Roboto',
     backgroundColor: 'transparent',
     borderWidth: 1,
@@ -184,29 +184,33 @@ const styles = StyleSheet.create({
   },
   buttonLabelImport: {
     fontSize: 16,
-    textAlign: 'left',
-    paddingHorizontal: 0,
+    textAlign: 'center',
     fontWeight: 'bold',
     fontFamily: 'Roboto',
     color: '#374D6B',
-    marginLeft: 10,
   },
   buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center', 
+    height: '100%', 
+  },
+  buttonInnerContent: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonLabel: {
-    fontSize: 16,
-    textAlign: 'left',
-    paddingHorizontal: 0,
+    fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
     color: '#ffffff',
     marginLeft: 10,
+    marginTop:7,
   },
   buttonIcon: {
-    marginRight: 1,
+    marginRight: 0, 
+    marginTop:7,
   },
   title: {
     fontSize: 40,
