@@ -48,7 +48,9 @@ export default function HomeScreen() {
       console.log('Data fetched successfully:', data);
       // Extract the 'x' property
       const x = data.x;
-      savePubKeyToStore(KEY_DID_SECURE_STORE, x);
+      if (Platform.OS !== 'web') {
+        savePubKeyToStore(KEY_DID_SECURE_STORE, x);
+      }
       setIssuerPubKey(x!);
       Toast.show(t('Issuer public key has been saved'), {
         duration: Toast.durations.LONG,
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    marginTop: 180,
+    marginTop: 100,
     width: 250,
     height: 50,
     justifyContent: 'center',
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#374D6B',
   },
   buttonImport: {
-    marginTop: 200,
+    marginTop: 100,
     width: 250,
     height: 50,
     justifyContent: 'center',
@@ -192,8 +194,8 @@ const styles = StyleSheet.create({
   buttonContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center', 
-    height: '100%', 
+    justifyContent: 'center',
+    height: '100%',
   },
   buttonInnerContent: {
     flexDirection: 'row',
@@ -209,7 +211,7 @@ const styles = StyleSheet.create({
     marginTop:7,
   },
   buttonIcon: {
-    marginRight: 0, 
+    marginRight: 0,
     marginTop:7,
   },
   title: {

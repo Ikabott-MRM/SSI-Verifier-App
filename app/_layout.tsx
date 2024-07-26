@@ -71,7 +71,7 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    height: 50, 
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
