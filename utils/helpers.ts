@@ -1,5 +1,4 @@
-import * as SecureStore from 'expo-secure-store';
-export const KEY_DID_SECURE_STORE = 'iovf_issuer_pub_key';
+export const KEY_ISSUER_PK_SECURE_STORE = 'iovf_issuer_pub_key';
 import nacl from 'tweetnacl';
 import * as naclUtil from 'tweetnacl-util';
 import { Payload } from '@/components/CredentialData';
@@ -64,12 +63,4 @@ export const verifyJWTSignature = (
     console.error('Error verifying JWT signature:', error);
     return null;
   }
-};
-
-export const getPubKeyFromStore = () => {
-  return SecureStore.getItem(KEY_DID_SECURE_STORE);
-};
-
-export const savePubKeyToStore = (key: string, value: any) => {
-  SecureStore.setItem(key, JSON.stringify(value));
 };

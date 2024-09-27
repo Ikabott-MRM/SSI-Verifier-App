@@ -5,7 +5,7 @@ import { Text, StyleSheet, Platform } from 'react-native';
 import { Button } from 'react-native-paper';
 import { View } from './Themed';
 import { useIsFocused } from '@react-navigation/core';
-import { getPubKeyFromStore, verifyJWTSignature } from '../utils/helpers';
+import { verifyJWTSignature } from '../utils/helpers';
 import CredentialData from './CredentialData';
 import React from 'react';
 import { useRouter } from 'expo-router';
@@ -13,10 +13,11 @@ import { Image } from 'expo-image';
 import { Payload } from './CredentialData';
 import Toast from 'react-native-root-toast';
 import { useTranslation } from 'react-i18next';
+import { useSecureStore } from '@/providers/SecureStoreProvider';
 
 export default function CredentialsVerification() {
   const router = useRouter();
-  const issuerPubKey = Platform.OS !== 'web' ? getPubKeyFromStore() : '';
+  // const issuerPubKey = Platform.OS !== 'web' ? getPubKeyFromStore() : '';
   const [permission, requestPermission] = useCameraPermissions();
   const [scanData, setScanData] = useState<string>('');
   const isFocused = useIsFocused();
@@ -24,6 +25,7 @@ export default function CredentialsVerification() {
   const [isJwtExpired, setIsJwtExpired] = useState<boolean>(false);
   const [credPayload, setCredPayload] = useState<Payload | null>(null);
   const { t } = useTranslation();
+  const {issuerPubKey} = useSecureStore();
 
   const handleBarCodeScanned = async ({ data }: { data: string }) => {
     try {
@@ -38,7 +40,6 @@ export default function CredentialsVerification() {
         return;
       }
 
-      // const res = verifyJWTSignature(data, issuerPubKey);
       const { payload, isExpired } =  verifyJWTSignature(data, issuerPubKey) ?? {};
       if (!isExpired && Boolean(payload)) {
         setIsValidSignature(true);

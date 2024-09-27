@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "IDA Verificador", 
+    "name": "IDA Verificador",
     "slug": "verifier-mobile",
     "version": "0.8.0-beta",
     "orientation": "portrait",
@@ -12,19 +12,27 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*", "./assets/images/*"],
+    "assetBundlePatterns": [
+      "**/*",
+      "./assets/images/*"
+    ],
     "ios": {
-      "supportsTablet": false, 
+      "supportsTablet": false,
       "bundleIdentifier": "iovf-ida-demo-verificador",
-      "name": "IDA Verificador"  
+      "name": "IDA Verificador"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.iovf.verifiermobile"
     },
-    "plugins": ["expo-router", "expo-secure-store", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font"
+    ],
     "experiments": {
       "typedRoutes": true
     },

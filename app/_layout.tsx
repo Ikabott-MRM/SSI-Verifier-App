@@ -9,8 +9,10 @@ import { RootSiblingParent } from 'react-native-root-siblings';
 import '@/utils/language/i18nextConfig';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CustomDropdown from '@/components/CustomDropdown';
+import { SecureStoreProvider } from '@/providers/SecureStoreProvider';
+import { install } from 'react-native-quick-crypto';
 
+install();
 export default function Layout() {
   const queryClient = new QueryClient();
   const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);
@@ -23,6 +25,7 @@ export default function Layout() {
   };
 
   return (
+    <SecureStoreProvider>
     <QueryClientProvider client={queryClient}>
       <RootSiblingParent>
         <PaperProvider>
@@ -66,6 +69,7 @@ export default function Layout() {
         </PaperProvider>
       </RootSiblingParent>
     </QueryClientProvider>
+    </SecureStoreProvider>
   );
 }
 

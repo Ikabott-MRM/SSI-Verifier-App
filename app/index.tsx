@@ -14,21 +14,21 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import '../shim';
 import useIssuerPubKeyQuery from '@/hooks/useIssuerPubKey';
 import {
-  getPubKeyFromStore,
-  savePubKeyToStore,
-  KEY_DID_SECURE_STORE,
+  KEY_ISSUER_PK_SECURE_STORE,
 } from '../utils/helpers';
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-root-toast';
+import { useSecureStore } from '@/providers/SecureStoreProvider';
 
 export default function HomeScreen() {
-  const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
-    Platform.OS !== 'web' ? getPubKeyFromStore() : null,
-  );
+  // const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
+  //   Platform.OS !== 'web' ? getPubKeyFromStore() : null,
+  // );
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
   const { t } = useTranslation();
+  const {secureStoreInstance, issuerPubKey, setIssuerPubKey} = useSecureStore()
 
   const handleFetch = () => {
     if (issuerPubKey) {
@@ -44,19 +44,22 @@ export default function HomeScreen() {
   };
 
   useEffect(() => {
-    if (data) {
+    const fetchIssuerPubKey= async()=>{
       console.log('Data fetched successfully:', data);
       // Extract the 'x' property
-      const x = data.x;
-      if (Platform.OS !== 'web') {
-        savePubKeyToStore(KEY_DID_SECURE_STORE, x);
+      const x = data!.x;
+      if (Platform.OS !== 'web' && secureStoreInstance && x) {
+        await secureStoreInstance.setItem(KEY_ISSUER_PK_SECURE_STORE, x)
+        // savePubKeyToStore(KEY_ISSUER_PK_SECURE_STORE, x);
       }
       setIssuerPubKey(x!);
       Toast.show(t('Issuer public key has been saved'), {
         duration: Toast.durations.LONG,
       });
     }
-  }, [data, setIssuerPubKey]);
+
+    if(data) fetchIssuerPubKey();
+  }, [data, secureStoreInstance, issuerPubKey]);
 
   return (
     <View style={styles.container}>
