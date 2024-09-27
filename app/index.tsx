@@ -21,9 +21,6 @@ import Toast from 'react-native-root-toast';
 import { useSecureStore } from '@/providers/SecureStoreProvider';
 
 export default function HomeScreen() {
-  // const [issuerPubKey, setIssuerPubKey] = useState<string | null>(
-  //   Platform.OS !== 'web' ? getPubKeyFromStore() : null,
-  // );
   const [modalVisible, setModalVisible] = useState(false);
   const router = useRouter();
   const { data, isLoading, isError, refetch } = useIssuerPubKeyQuery();
@@ -50,7 +47,6 @@ export default function HomeScreen() {
       const x = data!.x;
       if (Platform.OS !== 'web' && secureStoreInstance && x) {
         await secureStoreInstance.setItem(KEY_ISSUER_PK_SECURE_STORE, x)
-        // savePubKeyToStore(KEY_ISSUER_PK_SECURE_STORE, x);
       }
       setIssuerPubKey(x!);
       Toast.show(t('Issuer public key has been saved'), {

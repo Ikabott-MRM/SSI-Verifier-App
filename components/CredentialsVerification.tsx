@@ -17,7 +17,6 @@ import { useSecureStore } from '@/providers/SecureStoreProvider';
 
 export default function CredentialsVerification() {
   const router = useRouter();
-  // const issuerPubKey = Platform.OS !== 'web' ? getPubKeyFromStore() : '';
   const [permission, requestPermission] = useCameraPermissions();
   const [scanData, setScanData] = useState<string>('');
   const isFocused = useIsFocused();
