@@ -59,7 +59,8 @@
     "text-encoding": "^0.7.0",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "expo-dev-client": "~4.0.27"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
