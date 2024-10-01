@@ -19,7 +19,8 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "iovf-ida-demo-verificador",
-      "name": "IDA Verificador"
+      "name": "IDA Verificador",
+      "jsEngine": "hermes"
     },
     "android": {
       "adaptiveIcon": {

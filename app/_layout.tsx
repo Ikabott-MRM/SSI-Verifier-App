@@ -10,9 +10,7 @@ import '@/utils/language/i18nextConfig';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SecureStoreProvider } from '@/providers/SecureStoreProvider';
-import { install } from 'react-native-quick-crypto';
 
-install();
 export default function Layout() {
   const queryClient = new QueryClient();
   const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);

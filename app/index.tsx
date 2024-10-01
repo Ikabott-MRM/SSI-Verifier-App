@@ -1,3 +1,6 @@
+import { install } from 'react-native-quick-crypto';
+install();
+
 import React, { useEffect, useState } from 'react';
 import {
   View,
