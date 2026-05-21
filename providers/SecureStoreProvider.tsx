@@ -9,6 +9,7 @@ import {
   SecureStore,
 } from '@/services/secure-store';
 import { KEY_ISSUER_PK_SECURE_STORE } from '@/utils/helpers';
+import i18n from '@/utils/language/i18nextConfig';
 
  type SecureStoreContextType = {
    secureStoreInstance: SecureStore| null;
@@ -42,11 +43,17 @@ export const SecureStoreProvider = ({ children }: { children: React.ReactNode })
               setIssuerPubKey(issuerPubKey);
             }
           } else {
-            Alert.alert('Error', 'Failed to initialize secure storage.');
+            Alert.alert(
+              i18n.t('Error'),
+              i18n.t('Failed to initialize secure storage.'),
+            );
           }
         } catch (error) {
           console.error('Failed to initialize secure store:', error);
-          Alert.alert('Error', 'An unexpected error occurred.');
+          Alert.alert(
+            i18n.t('Error'),
+            i18n.t('An unexpected error occurred.'),
+          );
         }
       } else {
         console.warn('Secure storage is not available on the web platform.');

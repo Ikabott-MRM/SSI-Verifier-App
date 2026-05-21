@@ -17,13 +17,12 @@ const resources = {
 i18n.use(initReactI18next).init({
   debug: false,
   resources,
-  lng: LangCode.es,
-  fallbackLng: LangCode.es,
+  lng: LangCode.en,
+  fallbackLng: LangCode.en,
   compatibilityJSON: 'v3',
   interpolation: {
     escapeValue: false,
   },
 });
-// };
 
-// export default {initalizeI18Next};
+export default i18n;

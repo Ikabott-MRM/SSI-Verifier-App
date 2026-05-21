@@ -25,3 +25,6 @@ build-*.apk
 
 .env
 .idea
+
+# Firebase credentials
+ida-test-b219e-656ec87b9842.json

@@ -24,5 +24,15 @@
   "No": "No",
   "Yes": "Yes", 
   "VC has expired": "VC has expired",
-  "Ok":"Ok"
+  "Ok":"Ok",
+  "Not found message": "This screen doesn't exist.",
+  "Error": "Error",
+  "Failed to initialize secure storage.": "Failed to initialize secure storage.",
+  "An unexpected error occurred.": "An unexpected error occurred.",
+  "API error label": "API Error",
+  "Unexpected error label": "Unexpected error",
+  "No data returned from API": "No data returned from API",
+  "Failed to fetch issuer public key": "Failed to fetch issuer public key",
+  "languageSpanish": "Español",
+  "languageEnglish": "English"
 }

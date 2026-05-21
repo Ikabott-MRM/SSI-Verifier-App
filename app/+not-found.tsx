@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import { StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { Text, View } from '@/components/Themed';
 import React from 'react';
@@ -7,17 +8,18 @@ import { Button } from 'react-native-paper';
 
 export default function NotFoundScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>This screen doesn't exist.</Text>
+      <Text style={styles.title}>{t('Not found message')}</Text>
 
       <Button
         labelStyle={styles.buttonLabel}
         style={styles.button}
         onPress={() => router.replace('/')}
       >
-        Home
+        {t('Home')}
       </Button>
     </View>
   );

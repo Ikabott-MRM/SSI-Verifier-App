@@ -24,5 +24,15 @@
   "No": "No",
   "Yes": "Sí",
   "VC has expired":"La credencial está vencida",
-  "Ok":"Aceptar"
+  "Ok":"Aceptar",
+  "Not found message": "Esta pantalla no existe.",
+  "Error": "Error",
+  "Failed to initialize secure storage.": "No se pudo inicializar el almacenamiento seguro.",
+  "An unexpected error occurred.": "Ocurrió un error inesperado.",
+  "API error label": "Error de API",
+  "Unexpected error label": "Error inesperado",
+  "No data returned from API": "La API no devolvió datos",
+  "Failed to fetch issuer public key": "No se pudo obtener la clave pública del emisor",
+  "languageSpanish": "Español",
+  "languageEnglish": "English"
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View,
   Text,
@@ -17,21 +17,23 @@ type LanguageItem = {
   flag: ImageSourcePropType;
 };
 
-const languages = [
-  {
-    label: 'Español',
-    value: 'es',
-    flag: require('../assets/images/spain.png'),
-  },
-  {
-    label: 'English',
-    value: 'en',
-    flag: require('../assets/images/united-kingdom.png'),
-  },
-];
-
 export default function CustomDropdown() {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const languages = useMemo(
+    () => [
+      {
+        label: t('languageSpanish'),
+        value: 'es',
+        flag: require('../assets/images/spain.png'),
+      },
+      {
+        label: t('languageEnglish'),
+        value: 'en',
+        flag: require('../assets/images/united-kingdom.png'),
+      },
+    ],
+    [t],
+  );
   const [modalVisible, setModalVisible] = useState(false);
 
   const changeLanguage = (value: string) => {

@@ -8,22 +8,26 @@
       "distribution": "internal",
       "env": {
         "EXPO_PUBLIC_API_BASE_URL": "https://identity-api.mangofield-2f4eea69.brazilsouth.azurecontainerapps.io",
-        "EXPO_PUBLIC_API_KEY":"8a5e66195337b0eccdddbce894579f97"
+        "EXPO_PUBLIC_API_KEY": "8a5e66195337b0eccdddbce894579f97"
       }
     },
     "preview": {
       "android": {
-        "buildType": "apk"        
+        "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_BASE_URL": "https://identity-api.mangofield-2f4eea69.brazilsouth.azurecontainerapps.io/",
+        "EXPO_PUBLIC_API_BASE_URL": "https://identity-api.mangofield-2f4eea69.brazilsouth.azurecontainerapps.io",
         "EXPO_PUBLIC_API_KEY": "8a5e66195337b0eccdddbce894579f97"
       }
     },
     "production": {
+      "environment": "production",
+      "android": {
+        "buildType": "apk"
+      },
       "env": {
-        "EXPO_PUBLIC_API_BASE_URL": "https://identity-api.mangofield-2f4eea69.brazilsouth.azurecontainerapps.io",
-        "EXPO_PUBLIC_API_KEY":"8a5e66195337b0eccdddbce894579f97"
+        "EXPO_PUBLIC_API_BASE_URL": "https://api-ssi.iovf.org",
+        "EXPO_PUBLIC_API_KEY": "a620b8f33d0f04c0156574e00dacbcb7"
       }
     }
   },
