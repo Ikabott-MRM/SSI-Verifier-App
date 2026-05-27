@@ -7,10 +7,14 @@ import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 
 interface CredentialSubject {
-  firstname: string;
+  firstname?: string;
   id: string;
-  lastname: string;
-  licenseCategory: string;
+  lastname?: string;
+  licenseCategory?: string;
+  tipo?: string;
+  cantidad?: string;
+  precio?: string;
+  fechaEntrega?: string;
 }
 
 interface VC {
@@ -40,6 +44,9 @@ export default function CredentialData({
 }) {
   const router = useRouter();
   const { t } = useTranslation();
+  const isProductionRegistry = credPayload.vc.type?.some(type =>
+    type.includes('productionRegistry'),
+  );
 
   return (
     <Card style={styles.card}>
@@ -48,24 +55,54 @@ export default function CredentialData({
         source={require('../assets/images/valid-icon.png')}
       />
       <Card.Content>
-        <Text style={styles.title}>{t('Drivers License')}</Text>
+        <Text style={styles.title}>
+          {isProductionRegistry
+            ? t('Production Registry')
+            : t('Drivers License')}
+        </Text>
         <View style={styles.separator} />
-        <Text style={styles.textCard}>
-          <Text style={styles.label}>{t('Name')}: </Text>
-          {credPayload.vc.credentialSubject?.firstname}
-        </Text>
-        <Text style={styles.textCard}>
-          <Text style={styles.label}>{t('Lastname')}: </Text>
-          {credPayload.vc.credentialSubject?.lastname}
-        </Text>
-        <Text style={styles.textCard}>
-          <Text style={styles.label}>{t('Category')}: </Text>
-          {credPayload.vc.credentialSubject?.licenseCategory}
-        </Text>
-        <Text style={styles.textCard}>
-          <Text style={styles.label}>{t('Expiration date')}: </Text>
-          {new Date(credPayload.vc.expirationDate).toISOString().split('T')[0]}
-        </Text>
+        {!isProductionRegistry && (
+          <>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Name')}: </Text>
+              {credPayload.vc.credentialSubject?.firstname}
+            </Text>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Lastname')}: </Text>
+              {credPayload.vc.credentialSubject?.lastname}
+            </Text>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Category')}: </Text>
+              {credPayload.vc.credentialSubject?.licenseCategory}
+            </Text>
+          </>
+        )}
+        {isProductionRegistry && (
+          <>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Type')}: </Text>
+              {credPayload.vc.credentialSubject?.tipo}
+            </Text>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Quantity')}: </Text>
+              {credPayload.vc.credentialSubject?.cantidad}
+            </Text>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Price')}: </Text>
+              {credPayload.vc.credentialSubject?.precio}
+            </Text>
+            <Text style={styles.textCard}>
+              <Text style={styles.label}>{t('Delivery date')}: </Text>
+              {credPayload.vc.credentialSubject?.fechaEntrega}
+            </Text>
+          </>
+        )}
+        {credPayload.vc.expirationDate && (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Expiration date')}: </Text>
+            {new Date(credPayload.vc.expirationDate).toISOString().split('T')[0]}
+          </Text>
+        )}
       </Card.Content>
       <Card.Actions style={styles.actions}>
         <Button
