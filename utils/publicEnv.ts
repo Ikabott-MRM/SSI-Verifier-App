@@ -1,5 +1,4 @@
 import Constants from 'expo-constants';
-import * as Updates from 'expo-updates';
 
 type Extra = Record<string, unknown> | undefined;
 
@@ -47,15 +46,6 @@ function getExtraFromAppJson(): Extra {
 }
 
 function getExtraFromUpdates(): Extra {
-  const m = (Updates as unknown as { manifest?: unknown }).manifest;
-  if (m && typeof m === 'object' && 'extra' in m) {
-    const extra = (m as { extra?: unknown }).extra;
-    return (
-      extra && typeof extra === 'object'
-        ? (extra as Record<string, unknown>)
-        : undefined
-    ) as Extra;
-  }
   return undefined;
 }
 
