@@ -10,10 +10,11 @@ import '@/utils/language/i18nextConfig';
 import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SecureStoreProvider } from '@/providers/SecureStoreProvider';
+import { tenantBrand } from '@/constants/brand';
 
 export default function Layout() {
   const queryClient = new QueryClient();
-  const [assets] = useAssets([require('../assets/images/logo-iovf.png')]);
+  const [assets] = useAssets([tenantBrand.logo]);
   const { i18n } = useTranslation();
   const segments = useSegments();
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function Layout() {
           <Stack
             screenOptions={{
               headerStyle: {
-                backgroundColor: '#374D6B',
+                backgroundColor: tenantBrand.headerBackground,
               },
               headerTintColor: '#fff',
               headerTitleStyle: {

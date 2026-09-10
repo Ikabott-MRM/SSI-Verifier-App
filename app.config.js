@@ -1,31 +1,90 @@
 const appJson = require('./app.json');
 
-const envUrl = process.env.EXPO_PUBLIC_API_BASE_URL || '';
-const envKey = process.env.EXPO_PUBLIC_API_KEY || '';
-const useEnvUrl =
-  envUrl.includes('api.ssi-api.xyz') || envUrl.includes('32.193.115.213');
-const useEnvKey =
-  Boolean(envKey) &&
-  envKey !== 'e8be2a7d799ac712e250317b1edf276c' &&
-  !envKey.includes('api-key-for-interacting');
+/**
+ * Tenant branding: set EXPO_PUBLIC_TENANT_SLUG=geyser|avaldao on the EAS profile.
+ * Never hardcode API keys here.
+ */
+const apiBaseUrl =
+  process.env.EXPO_PUBLIC_API_BASE_URL || 'https://api.ssi-api.xyz';
+const apiKey = process.env.EXPO_PUBLIC_API_KEY || '';
+const ipfsGateway =
+  process.env.EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL ||
+  'https://gateway.pinata.cloud';
+
+const tenantSlug = (process.env.EXPO_PUBLIC_TENANT_SLUG || 'geyser')
+  .trim()
+  .toLowerCase();
+
+const tenantMeta = {
+  geyser: {
+    displayName: 'Geyser Verificador',
+    androidPackage: 'com.ikabott.ssi.verifier.geyser',
+    iosBundle: 'com.ikabott.ssi.verifier.geyser',
+    adaptiveBg: '#00F5DC',
+    splashBg: '#FFFFFF',
+  },
+  avaldao: {
+    displayName: 'AvalDAO Verificador',
+    androidPackage: 'com.ikabott.ssi.verifier.avaldao',
+    iosBundle: 'com.ikabott.ssi.verifier.avaldao',
+    adaptiveBg: '#292A6D',
+    splashBg: '#FFFFFF',
+  },
+}[tenantSlug] || {
+  displayName: 'SSI Verificador',
+  androidPackage: 'com.ikabott.ssi.verifier',
+  iosBundle: 'com.ikabott.ssi.verifier',
+  adaptiveBg: '#0B3D6E',
+  splashBg: '#FFFFFF',
+};
+
+const isReleaseLike =
+  Boolean(process.env.EAS_BUILD) ||
+  Boolean(process.env.CI) ||
+  process.env.NODE_ENV === 'production';
+
+if (!apiKey && isReleaseLike) {
+  throw new Error(
+    'EXPO_PUBLIC_API_KEY is missing. Set it in Expo EAS Environment variables (production / per-tenant) or in a local .env — never commit keys. See EAS_ENV_SETUP.md.'
+  );
+}
 
 const publicEnv = {
-  EXPO_PUBLIC_API_BASE_URL: useEnvUrl ? envUrl : 'https://api.ssi-api.xyz',
-  EXPO_PUBLIC_API_KEY: useEnvKey
-    ? envKey
-    : '456b365c6e9f8ebe37ec54809064402f',
-  EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL:
-    process.env.EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL ||
-    'https://gateway.pinata.cloud',
+  EXPO_PUBLIC_API_BASE_URL: apiBaseUrl,
+  EXPO_PUBLIC_API_KEY: apiKey,
+  EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL: ipfsGateway,
+  EXPO_PUBLIC_TENANT_SLUG: tenantSlug,
 };
 
 /** @type {import('expo/config').ExpoConfig} */
 module.exports = {
   expo: {
     ...appJson.expo,
+    name: tenantMeta.displayName,
+    splash: {
+      ...appJson.expo.splash,
+      backgroundColor: tenantMeta.splashBg,
+    },
+    ios: {
+      ...appJson.expo.ios,
+      bundleIdentifier: tenantMeta.iosBundle,
+      name: tenantMeta.displayName,
+    },
+    android: {
+      ...appJson.expo.android,
+      package: tenantMeta.androidPackage,
+      adaptiveIcon: {
+        ...appJson.expo.android?.adaptiveIcon,
+        backgroundColor: tenantMeta.adaptiveBg,
+      },
+      googleServicesFile:
+        process.env.GOOGLE_SERVICES_JSON ??
+        appJson.expo.android.googleServicesFile,
+    },
     extra: {
       ...appJson.expo.extra,
       publicEnv,
+      tenantSlug,
     },
   },
 };
