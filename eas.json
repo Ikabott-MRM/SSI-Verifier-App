@@ -28,6 +28,26 @@
       "env": {
         "EXPO_PUBLIC_API_BASE_URL": "https://api-ssi.iovf.org"
       }
+    },
+    "production-ip": {
+      "environment": "production",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_BASE_URL": "http://32.193.115.213",
+        "EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL": "https://gateway.pinata.cloud"
+      }
+    },
+    "production-ssi-api": {
+      "environment": "production",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_BASE_URL": "https://api.ssi-api.xyz",
+        "EXPO_PUBLIC_IPFS_GATEWAY_BASE_URL": "https://gateway.pinata.cloud"
+      }
     }
   },
   "submit": {
