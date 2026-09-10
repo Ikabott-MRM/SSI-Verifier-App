@@ -1,31 +1,36 @@
 # EAS environment variables (Verifier app)
 
-API keys are **not** stored in `eas.json`. Set them in [Expo](https://expo.dev) for project **verifier-mobile** (`owner: iovf`, project id in `app.json`).
+API keys are **not** stored in `eas.json` or `app.config.js`. Set them in [Expo](https://expo.dev) for project **ssi-verifier-app** (`owner: ikabott`, project id in `app.json`).
 
-Log in as an **iovf** org member with access to this project:
+Log in as **ikabott** (same account as SSI-Citizen-App):
 
 ```bash
 eas login
-cd IDA-Verificador-App
+cd SSI-Verifier-App
 ```
+
+**Expo project:** [@ikabott/ssi-verifier-app](https://expo.dev/accounts/ikabott/projects/ssi-verifier-app)
 
 ## Required variables
 
 | EAS environment | Variable | Value source |
 |-----------------|----------|--------------|
-| `development` | `EXPO_PUBLIC_API_KEY` | Staging/non-prod key (Azure API admin) |
+| `development` | `EXPO_PUBLIC_API_KEY` | Staging/non-prod key |
 | `preview` | `EXPO_PUBLIC_API_KEY` | Same as development |
-| `production` | `EXPO_PUBLIC_API_KEY` | New mobile key after prod rotation (`tools/.last-verifier-mobile-key`, gitignored) |
+| `production` | `EXPO_PUBLIC_API_KEY` | Secrets Manager `ssi/tenant/<slug>/runtime` → `apiKeyMobile` (or Bitwarden BotsManaged) |
+| per-tenant envs | `EXPO_PUBLIC_API_KEY` | Same secret for that tenant |
 
-`EXPO_PUBLIC_API_BASE_URL` remains in `eas.json` per profile.
+Non-secret URLs (`EXPO_PUBLIC_API_BASE_URL`, IPFS gateway) may remain in `eas.json` profile `env` blocks. Keys must never be committed.
 
-### CLI (run as iovf)
+After rotating Identity mobile keys, update **EAS Environment variables** (and Bitwarden) — not git.
+
+### CLI
 
 ```bash
-# Replace NEW_KEY with the value from rotation / your staging admin
-eas env:create --name EXPO_PUBLIC_API_KEY --value NEW_KEY --environment development --visibility secret
-eas env:create --name EXPO_PUBLIC_API_KEY --value NEW_KEY --environment preview --visibility secret
-eas env:create --name EXPO_PUBLIC_API_KEY --value NEW_PROD_MOBILE_KEY --environment production --visibility secret
+eas env:create --name EXPO_PUBLIC_API_KEY --value YOUR_MOBILE_KEY --environment production --visibility secret --type string
+# or eas env:update if the variable already exists
+eas env:create --name EXPO_PUBLIC_API_KEY --value STAGING_KEY --environment development --visibility secret --type string
+eas env:create --name EXPO_PUBLIC_API_KEY --value STAGING_KEY --environment preview --visibility secret --type string
 ```
 
 Or use **Expo → Project → Environment variables** in the dashboard.
@@ -34,11 +39,8 @@ Or use **Expo → Project → Environment variables** in the dashboard.
 
 Copy `.env.example` to `.env` and set `EXPO_PUBLIC_API_KEY` locally (never commit `.env`).
 
-## Staging key exposed on GitHub
-
-The non-prod key that was in git (`8a5e66195337b0eccdddbce894579f97`) targets **Azure Container Apps**. Rotate it in that environment’s identity API database; EAS `development` / `preview` must be updated after rotation.
-
 ## Also update
 
-- **IDA-Ciudadano-App** uses the same production mobile key — set `EXPO_PUBLIC_API_KEY` in its Expo project after prod rotation.
-- **Amplify** `ida-emisor-web-prod` uses a separate **issuer** key (`IDENTITY_API_KEY`), not the mobile key.
+- **SSI-Citizen-App** — set `EXPO_PUBLIC_API_KEY` in its Expo project the same way ([EAS_ENV_SETUP.md](../SSI-Citizen-App/EAS_ENV_SETUP.md)).
+- **Amplify** Emisor uses a separate **issuer** key (`IDENTITY_API_KEY`), not the mobile key.
+- Tenant handoff: [`docs/tenant-stack-onboarding.md`](../docs/tenant-stack-onboarding.md)
