@@ -1,7 +1,11 @@
 import { Stack, useRouter, useSegments } from 'expo-router';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { PaperProvider, IconButton } from 'react-native-paper';
+import {
+  MD3LightTheme as DefaultTheme,
+  PaperProvider,
+  IconButton,
+} from 'react-native-paper';
 import { useAssets } from 'expo-asset';
 import { Image } from 'expo-image';
 import { ImageSourcePropType, View, StyleSheet } from 'react-native';
@@ -11,6 +15,17 @@ import { useTranslation } from 'react-i18next';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { SecureStoreProvider } from '@/providers/SecureStoreProvider';
 import { tenantBrand } from '@/constants/brand';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: tenantBrand.primary,
+    onPrimary: tenantBrand.onPrimary,
+    secondary: tenantBrand.accent,
+    onSecondary: tenantBrand.onPrimary,
+  },
+};
 
 export default function Layout() {
   const queryClient = new QueryClient();
@@ -23,17 +38,20 @@ export default function Layout() {
     i18n.changeLanguage(value);
   };
 
+  const headerTint =
+    tenantBrand.slug === 'geyser' ? '#E8E8E8' : '#fff';
+
   return (
     <SecureStoreProvider>
     <QueryClientProvider client={queryClient}>
       <RootSiblingParent>
-        <PaperProvider>
+        <PaperProvider theme={theme}>
           <Stack
             screenOptions={{
               headerStyle: {
                 backgroundColor: tenantBrand.headerBackground,
               },
-              headerTintColor: '#fff',
+              headerTintColor: headerTint,
               headerTitleStyle: {
                 fontWeight: 'bold',
               },
@@ -52,7 +70,7 @@ export default function Layout() {
                 segments[0] !== '' && (
                   <IconButton
                     icon={() => (
-                      <Ionicons name="home-outline" size={24} color="white" />
+                      <Ionicons name="home-outline" size={24} color={headerTint} />
                     )}
                     onPress={() => router.replace('/')}
                   />

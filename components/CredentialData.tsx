@@ -5,6 +5,7 @@ import React from 'react';
 import { useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
+import { tenantBrand } from '@/constants/brand';
 
 interface CredentialSubject {
   firstname?: string;
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    backgroundColor: '#374D6B',
+    backgroundColor: tenantBrand.primary,
   },
   image: {
     marginLeft: '30%',
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: '#374D6B',
+    color: tenantBrand.primaryDark,
     fontWeight: 'bold',
     marginBottom: 10,
   },
