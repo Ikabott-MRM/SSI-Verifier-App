@@ -22,6 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import Toast from 'react-native-root-toast';
 import { useSecureStore } from '@/providers/SecureStoreProvider';
+import { tenantBrand } from '@/constants/brand';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -107,7 +108,7 @@ export default function HomeScreen() {
                   <Ionicons
                     name="qr-code-outline"
                     size={20}
-                    color="#fff"
+                    color={tenantBrand.onPrimary}
                     style={styles.buttonIcon}
                   />
                   <Text style={styles.buttonLabel}>{t('Open scanner')}</Text>
@@ -137,7 +138,7 @@ export default function HomeScreen() {
           </Button>
         </>
       ) : (
-        <ActivityIndicator size="large" color="#4e957d" />
+        <ActivityIndicator size="large" color={tenantBrand.accent} />
       )}
     </View>
   );
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     fontSize: 16,
     fontFamily: 'Roboto',
-    backgroundColor: '#374D6B',
+    backgroundColor: tenantBrand.primary,
   },
   buttonImport: {
     marginTop: 100,
@@ -184,14 +185,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#374D6B',
+    borderColor: tenantBrand.primaryDark,
   },
   buttonLabelImport: {
     fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
     fontFamily: 'Roboto',
-    color: '#374D6B',
+    color: tenantBrand.primaryDark,
   },
   buttonContent: {
     flexDirection: 'row',
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
-    color: '#ffffff',
+    color: tenantBrand.onPrimary,
     marginLeft: 10,
     marginTop:7,
   },
@@ -219,14 +220,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#374D6B',
+    color: tenantBrand.primaryDark,
     textAlign: 'center',
     marginBottom: 40,
   },
   h1: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#374D6B',
+    color: tenantBrand.primaryDark,
     textAlign: 'center',
     marginBottom: 20,
     fontFamily: 'Roboto',
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginHorizontal: 5,
-    backgroundColor: '#4e957d',
+    backgroundColor: tenantBrand.accent,
     borderRadius: 5,
   },
   modalButtonText: {

@@ -1,17 +1,23 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+/**
+ * App tint colors derived from the active tenant brand.
+ * Avoid hard-coded AvalDAO purple as a global default.
+ */
+import { tenantBrand } from './brand';
+
+const tintColorLight = tenantBrand.primaryDark;
+const tintColorDark = tenantBrand.primary;
 
 export default {
   light: {
-    text: '#000',
-    background: '#fff',
+    text: '#1A1A1A',
+    background: '#FFFFFF',
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
   },
   dark: {
     text: '#fff',
-    background: '#000',
+    background: tenantBrand.primaryDark,
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,

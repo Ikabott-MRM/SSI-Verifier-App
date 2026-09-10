@@ -14,6 +14,7 @@ import { Payload } from './CredentialData';
 import Toast from 'react-native-root-toast';
 import { useTranslation } from 'react-i18next';
 import { useSecureStore } from '@/providers/SecureStoreProvider';
+import { tenantBrand } from '@/constants/brand';
 
 export default function CredentialsVerification() {
   const router = useRouter();
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 2,
     bottom: 2,
-    backgroundColor: '#374D6B',
+    backgroundColor: tenantBrand.primary,
   },
   buttons: {
     flexDirection: 'row',
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonLabel: {
-    color: 'white',
+    color: tenantBrand.onPrimary,
   },
   title: {
     fontSize: 20,

@@ -8,6 +8,8 @@ type TenantBrand = {
   primary: string;
   primaryDark: string;
   accent: string;
+  /** Text / icon color on primary buttons (readable contrast). */
+  onPrimary: string;
   headerBackground: string;
   adaptiveIconBackground: string;
   logo: ImageSourcePropType;
@@ -22,6 +24,7 @@ const brands: Record<TenantSlug, TenantBrand> = {
     primary: '#00F5DC',
     primaryDark: '#21201C',
     accent: '#00C3AD',
+    onPrimary: '#21201C',
     headerBackground: '#21201C',
     adaptiveIconBackground: '#00F5DC',
     logo: require('../assets/images/tenants/geyser-logo.png'),
@@ -34,6 +37,7 @@ const brands: Record<TenantSlug, TenantBrand> = {
     primary: '#292A6D',
     primaryDark: '#1A1B4A',
     accent: '#7868E5',
+    onPrimary: '#FFFFFF',
     headerBackground: '#292A6D',
     adaptiveIconBackground: '#292A6D',
     logo: require('../assets/images/tenants/avaldao-logo.png'),
@@ -46,7 +50,8 @@ const brands: Record<TenantSlug, TenantBrand> = {
     primary: '#0B3D6E',
     primaryDark: '#062847',
     accent: '#4A90A4',
-    headerBackground: '#374D6B',
+    onPrimary: '#FFFFFF',
+    headerBackground: '#0B3D6E',
     adaptiveIconBackground: '#0B3D6E',
     logo: require('../assets/images/tenants/geyser-logo.png'),
     androidPackageVerifier: 'com.ikabott.ssi.verifier',
