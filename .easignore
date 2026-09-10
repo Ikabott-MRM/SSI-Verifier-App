@@ -1,0 +1,3 @@
+# Use EAS managed native build (same as SSI-Citizen-App). The committed
+# android/ tree is for local dev; cloud build runs prebuild instead.
+android/

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "IDA Verificador",
-    "slug": "verifier-mobile",
+    "slug": "ssi-verifier-app",
     "version": "0.9.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -23,6 +23,7 @@
       "jsEngine": "hermes"
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -32,7 +33,18 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "newArchEnabled": false
+          },
+          "ios": {
+            "newArchEnabled": false
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
@@ -42,9 +54,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "2c8ba26b-9e50-4e5e-9488-f9f6c13ccaa4"
+        "projectId": "624c2c6c-646a-44fe-b4c3-6f8bafd815e5"
       }
     },
-    "owner": "iovf"
+    "owner": "ikabott"
   }
 }
