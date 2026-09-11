@@ -39,7 +39,7 @@ export default function Layout() {
   };
 
   const headerTint =
-    tenantBrand.slug === 'geyser' ? '#E8E8E8' : '#fff';
+    tenantBrand.slug === 'geyser' ? tenantBrand.primaryDark : '#fff';
 
   return (
     <SecureStoreProvider>
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerImage: {
-    width: 90,
-    height: 50,
+    width: 148,
+    height: 36,
     padding: 2,
   },
 });

@@ -25,7 +25,7 @@ const brands: Record<TenantSlug, TenantBrand> = {
     primaryDark: '#21201C',
     accent: '#00C3AD',
     onPrimary: '#21201C',
-    headerBackground: '#21201C',
+    headerBackground: '#FFFFFF',
     adaptiveIconBackground: '#00F5DC',
     logo: require('../assets/images/tenants/geyser-logo.png'),
     androidPackageVerifier: 'com.ikabott.ssi.verifier.geyser',
