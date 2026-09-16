@@ -12,6 +12,8 @@ interface CredentialSubject {
   id: string;
   lastname?: string;
   licenseCategory?: string;
+  projectName?: string;
+  role?: string;
   tipo?: string;
   cantidad?: string;
   precio?: string;
@@ -38,6 +40,26 @@ export interface Payload {
   vc: VC;
 }
 
+const getCredentialTitle = (type: string[] = [], t: (key: string) => string) => {
+  const joined = type.join(' ').toLowerCase();
+  if (joined.includes('donor')) return t('Donor');
+  if (joined.includes('fundraiser')) return t('Fundraiser');
+  if (joined.includes('associate')) return t('Associate');
+  if (
+    joined.includes('productionregistry') ||
+    joined.includes('production_registry')
+  ) {
+    return t('Production Registry');
+  }
+  if (
+    joined.includes('driverslicense') ||
+    joined.includes('drivers_license')
+  ) {
+    return t('Drivers License');
+  }
+  return t('Credential');
+};
+
 export default function CredentialData({
   credPayload,
 }: {
@@ -45,9 +67,7 @@ export default function CredentialData({
 }) {
   const router = useRouter();
   const { t } = useTranslation();
-  const isProductionRegistry = credPayload.vc.type?.some(type =>
-    type.includes('productionRegistry'),
-  );
+  const subject = credPayload.vc.credentialSubject;
 
   return (
     <Card style={styles.card}>
@@ -57,47 +77,63 @@ export default function CredentialData({
       />
       <Card.Content>
         <Text style={styles.title}>
-          {isProductionRegistry
-            ? t('Production Registry')
-            : t('Drivers License')}
+          {getCredentialTitle(credPayload.vc.type, t)}
         </Text>
         <View style={styles.separator} />
-        {!isProductionRegistry && (
-          <>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Name')}: </Text>
-              {credPayload.vc.credentialSubject?.firstname}
-            </Text>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Lastname')}: </Text>
-              {credPayload.vc.credentialSubject?.lastname}
-            </Text>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Category')}: </Text>
-              {credPayload.vc.credentialSubject?.licenseCategory}
-            </Text>
-          </>
-        )}
-        {isProductionRegistry && (
-          <>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Type')}: </Text>
-              {credPayload.vc.credentialSubject?.tipo}
-            </Text>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Quantity')}: </Text>
-              {credPayload.vc.credentialSubject?.cantidad}
-            </Text>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Price')}: </Text>
-              {credPayload.vc.credentialSubject?.precio}
-            </Text>
-            <Text style={styles.textCard}>
-              <Text style={styles.label}>{t('Delivery date')}: </Text>
-              {credPayload.vc.credentialSubject?.fechaEntrega}
-            </Text>
-          </>
-        )}
+        {subject?.firstname ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Name')}: </Text>
+            {subject.firstname}
+          </Text>
+        ) : null}
+        {subject?.lastname ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Lastname')}: </Text>
+            {subject.lastname}
+          </Text>
+        ) : null}
+        {subject?.projectName ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Project name')}: </Text>
+            {subject.projectName}
+          </Text>
+        ) : null}
+        {subject?.role ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Role')}: </Text>
+            {subject.role}
+          </Text>
+        ) : null}
+        {subject?.licenseCategory ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Category')}: </Text>
+            {subject.licenseCategory}
+          </Text>
+        ) : null}
+        {subject?.tipo ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Type')}: </Text>
+            {subject.tipo}
+          </Text>
+        ) : null}
+        {subject?.cantidad ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Quantity')}: </Text>
+            {subject.cantidad}
+          </Text>
+        ) : null}
+        {subject?.precio ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Price')}: </Text>
+            {subject.precio}
+          </Text>
+        ) : null}
+        {subject?.fechaEntrega ? (
+          <Text style={styles.textCard}>
+            <Text style={styles.label}>{t('Delivery date')}: </Text>
+            {subject.fechaEntrega}
+          </Text>
+        ) : null}
         {credPayload.vc.expirationDate && (
           <Text style={styles.textCard}>
             <Text style={styles.label}>{t('Expiration date')}: </Text>

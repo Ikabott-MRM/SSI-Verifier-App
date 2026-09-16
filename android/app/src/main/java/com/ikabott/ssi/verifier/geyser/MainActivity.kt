@@ -1,4 +1,4 @@
-package com.iovf.verifiermobile
+package com.ikabott.ssi.verifier.geyser
 
 import android.os.Build
 import android.os.Bundle

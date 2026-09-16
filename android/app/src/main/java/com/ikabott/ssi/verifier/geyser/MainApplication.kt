@@ -1,4 +1,4 @@
-package com.iovf.verifiermobile
+package com.ikabott.ssi.verifier.geyser
 
 import android.app.Application
 import android.content.res.Configuration
